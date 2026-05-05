@@ -2,19 +2,15 @@
 @baseUrl = http://localhost:5231
 
 ###
-
 GET {{baseUrl}}/api/tasks
 
 ###
-
 GET {{baseUrl}}/api/tasks?completed=true
 
 ###
-
 GET {{baseUrl}}/api/tasks?completed=false
 
 ###
-
 GET {{baseUrl}}/api/tasks/1
 
 ###
@@ -55,4 +51,19 @@ Content-Type: application/json
 }
 
 ###
+PATCH {{baseUrl}}/api/tasks/2/complete
+
+###
 DELETE {{baseUrl}}/api/tasks/4
+
+###
+GET {{baseUrl}}/api/tasks/search?query=ASP
+
+###
+GET {{baseUrl}}/api/tasks/priority/High
+
+###
+GET {{baseUrl}}/api/tasks/stats
+
+###
+GET {{baseUrl}}/api/tasks/sorted?by=priority&order=false
