@@ -1,22 +1,30 @@
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
-// Настройки для разработки
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();         // Генерация OpenAPI документа
-    app.UseSwaggerUI();       // Визуальный интерфейс Swagger
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-// Middleware общего назначения (для всех сред)
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
-app.MapControllers(); // Более современный способ вместо MapControllerRoute
+app.MapControllers();
 
 app.Run();

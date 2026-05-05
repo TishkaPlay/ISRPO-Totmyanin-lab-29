@@ -4,25 +4,25 @@ namespace TaskApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TaskController : ControllerBase {
+public class TasksController : ControllerBase {
     private static List<TaskItem> _tasks = new() {
         new TaskItem {
             Id = 1,
             Title = "Изучить ASP.NET Core",
             Priority = "High",
-            isCompleted = true
+            IsCompleted = true
         },
         new TaskItem {
             Id = 2,
             Title = "Сделать лабораторную №28",
             Priority = "High",
-            isCompleted = false
+            IsCompleted = false
         },
         new TaskItem {
             Id = 3,
             Title = "Написать README",
             Priority = "Normal",
-            isCompleted = false
+            IsCompleted = false
         },
 
     };
@@ -33,7 +33,7 @@ public class TaskController : ControllerBase {
     var result = _tasks.AsEnumerable();
 
     if (completed.HasValue)
-        result = result.Where(t => t.isCompleted == completed.Value);
+        result = result.Where(t => t.IsCompleted == completed.Value);
 
     return Ok(result);
     }
@@ -55,7 +55,7 @@ public class TaskController : ControllerBase {
         Title = dto.Title,
         Description = dto.Description,
         Priority = dto.Priority,
-        isCompleted = false,
+        IsCompleted = false,
         CreatedAt = DateTime.Now
     };
     _tasks.Add(newTask);
@@ -74,7 +74,7 @@ public class TaskController : ControllerBase {
 
         task.Title = dto.Title;
         task.Description = dto.Description;
-        task.isCompleted = dto.isCompleted;
+        task.IsCompleted = dto.IsCompleted;
         task.Priority = dto.Priority;
 
         return Ok(task);
@@ -99,10 +99,9 @@ public class TaskController : ControllerBase {
         if (task is null)
             return NotFound(new { Message = $"Задача с id={id} не найдена" });
 
-        task.isCompleted = !task.isCompleted;
+        task.IsCompleted = !task.IsCompleted;
 
         return Ok(task);
     }
-
     
 }
